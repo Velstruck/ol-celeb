@@ -32,7 +32,6 @@ def extract_features(img_path,model,detector):
 
     face = img[y:y + height, x:x + width]
 
-    #  extract its features
     image = Image.fromarray(face)
     image = image.resize((224, 224))
 
@@ -62,7 +61,6 @@ st.title('Which bollywood celebrity are you?')
 image_base64 = get_base64_image("assets/stock_image.png")   
 image_html = f'<img src="data:image/png;base64,{image_base64}" style="width: 40%; height: 35%;">'
 
-# Add a photo or logo with HTML
 st.markdown(f"""
     <div style="text-align: center;">
         {image_html}
@@ -73,17 +71,13 @@ st.markdown(f"""
 uploaded_image = st.file_uploader('Choose an image')
 
 if uploaded_image is not None:
-    # save the image in a directory
     if save_uploaded_image(uploaded_image):
-        # load the image
         display_image = Image.open(uploaded_image)
 
         # extract the features
         features = extract_features(os.path.join('uploads',uploaded_image.name),model,detector)
-        # recommend
         index_pos = recommend(feature_list,features)
         predicted_actor = " ".join(filenames[index_pos].split('\\')[1].split('_'))
-        # display
         col1,col2 = st.columns(2)
 
         with col1:

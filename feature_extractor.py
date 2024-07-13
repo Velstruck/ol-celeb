@@ -24,7 +24,7 @@ filenames = pickle.load(open('filenames.pkl','rb'))
 
 model = VGGFace(model='resnet50',include_top=False,input_shape=(224,224,3),pooling='avg')
 
-def feature_extractor(img_path,model): #2048 features extract 
+def feature_extractor(img_path,model): 
     img = image.load_img(img_path,target_size=(224,224))
     img_array = image.img_to_array(img)
     expanded_img = np.expand_dims(img_array,axis=0)
